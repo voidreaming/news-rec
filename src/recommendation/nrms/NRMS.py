@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from transformers.modeling_outputs import ModelOutput
+from typing import Optional
 
 
 class NRMS(nn.Module):
@@ -18,6 +19,7 @@ class NRMS(nn.Module):
         self.loss_fn = loss_fn
 
     def forward(
+        # self, candidate_news: torch.Tensor, news_histories: torch.Tensor, target: Optional[torch.Tensor] = None
         self, candidate_news: torch.Tensor, news_histories: torch.Tensor, target: torch.Tensor
     ) -> torch.Tensor:
         """
@@ -64,3 +66,8 @@ class NRMS(nn.Module):
 
         loss = self.loss_fn(output, target)
         return ModelOutput(logits=output, loss=loss, labels=target)
+        # if not self.training or target is None:
+        #     return ModelOutput(logits=output, loss=torch.Tensor([-1]), labels=target)
+
+        # loss = self.loss_fn(output, target)
+        # return ModelOutput(logits=output, loss=loss, labels=target)

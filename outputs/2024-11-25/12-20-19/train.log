@@ -1,0 +1,15 @@
+[2024-11-25 12:20:59,706][root][INFO] - Initializing Model
+[2024-11-25 12:21:40,395][root][INFO] - Model initialized in 40.69 seconds
+[2024-11-25 12:21:40,395][root][INFO] - Loading Datasets
+[2024-11-25 12:21:49,590][root][INFO] - Datasets loaded in 9.19 seconds
+[2024-11-25 12:21:49,770][root][INFO] - Starting Training
+[2024-11-25 13:55:17,602][root][INFO] - Evaluating at the end of epoch
+[2024-11-25 14:19:39,493][root][INFO] - Evaluation AUC: 0.6463
+[2024-11-25 14:19:39,627][root][INFO] - Current AUC: 0.6463
+[2024-11-25 14:19:39,627][root][INFO] - New best AUC: 0.6463
+[2024-11-25 14:19:43,152][root][INFO] - Training completed in 7073.38 seconds
+[2024-11-25 14:19:43,152][root][INFO] - Final Evaluation
+[2024-11-25 14:43:55,230][root][INFO] - Evaluation AUC: 0.6463
+[2024-11-25 14:43:55,364][root][INFO] - Final evaluation completed in 1452.21 seconds
+[2024-11-25 14:43:55,364][root][INFO] - Final AUC: 0.6463
+[2024-11-25 14:43:55,364][root][INFO] - Total training time: 8615.75 seconds

@@ -1,0 +1,23 @@
+[2024-11-25 18:28:37,303][root][INFO] - Initializing Model
+[2024-11-25 18:28:38,873][root][ERROR] - An error occurred: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 23.65 GiB of which 17.94 MiB is free. Process 2548162 has 20.14 GiB memory in use. Process 2551854 has 2.82 GiB memory in use. Including non-PyTorch memory, this process has 676.00 MiB memory in use. Of the allocated memory 272.28 MiB is allocated by PyTorch, and 19.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 126, in train
+    ).to(device)
+      ^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1340, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 900, in _apply
+    module._apply(fn)
+  [Previous line repeated 4 more times]
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 927, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1326, in convert
+    return t.to(
+           ^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 23.65 GiB of which 17.94 MiB is free. Process 2548162 has 20.14 GiB memory in use. Process 2551854 has 2.82 GiB memory in use. Including non-PyTorch memory, this process has 676.00 MiB memory in use. Of the allocated memory 272.28 MiB is allocated by PyTorch, and 19.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

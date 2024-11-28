@@ -27,19 +27,38 @@ class MINDTrainDataset(Dataset):
         self.history_size: int = history_size
         self.device: torch.device = device
 
-        self.behavior_df = self.behavior_df.with_columns(
-            [
-                pl.col("impressions")
-                .apply(lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 1])
-                .alias("clicked_idxes"),
-                pl.col("impressions")
-                .apply(lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 0])
-                .alias("non_clicked_idxes"),
-            ]
-        )
+        # self.behavior_df = self.behavior_df.with_columns(
+        #     [
+        #         pl.col("impressions")
+        #         .apply(lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 1])
+        #         .alias("clicked_idxes"),
+        #         pl.col("impressions")
+        #         .apply(lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 0])
+        #         .alias("non_clicked_idxes"),
+        #     ]
+        # )
+        # Fix: Replace .apply() with .map_elements() and specify return_dtype
+        self.behavior_df = self.behavior_df.with_columns([
+            pl.col("impressions")
+            .map_elements(
+                lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 1],
+                return_dtype=pl.List(pl.Int64)
+            )
+            .alias("clicked_idxes"),
+            pl.col("impressions")
+            .map_elements(
+                lambda v: [i for i, imp_item in enumerate(v) if imp_item["clicked"] == 0],
+                return_dtype=pl.List(pl.Int64)
+            )
+            .alias("non_clicked_idxes"),
+        ])
 
-        self.__news_id_to_title_map: dict[str, str] = {
-            self.news_df[i]["news_id"].item(): self.news_df[i]["title"].item() for i in range(len(self.news_df))
+        # self.__news_id_to_title_map: dict[str, str] = {
+        #     self.news_df[i]["news_id"].item(): self.news_df[i]["title"].item() for i in range(len(self.news_df))
+        # }
+        self.__news_id_to_title_map = {
+            row['news_id']: row['title']
+            for row in self.news_df.to_dicts()
         }
         self.__news_id_to_title_map[EMPTY_NEWS_ID] = ""
 
@@ -135,47 +154,87 @@ class MINDValDataset(Dataset):
         }
         self.__news_id_to_title_map[EMPTY_NEWS_ID] = ""
 
-    def __getitem__(self, behavior_idx: int) -> dict:  # TODO: 一行あたりにpositiveが複数存在することも考慮した
-        """
-        Returns:
-            torch.Tensor: history_news
-            torch.Tensor: candidate_news
-            torch.Tensor: one-hot labels
-        """
-        # Extract Values
-        behavior_item = self.behavior_df[behavior_idx]
+    # def __getitem__(self, behavior_idx: int) -> dict:  # TODO: 一行あたりにpositiveが複数存在することも考慮した
+    #     """
+    #     Returns:
+    #         torch.Tensor: history_news
+    #         torch.Tensor: candidate_news
+    #         torch.Tensor: one-hot labels
+    #     """
+    #     # Extract Values
+    #     behavior_item = self.behavior_df[behavior_idx]
 
-        history: list[str] = (
-            behavior_item["history"].to_list()[0] if behavior_item["history"].to_list()[0] is not None else []
-        )  # TODO: Consider Remove if "history" is None
-        EMPTY_IMPRESSION = {"news_id": EMPTY_NEWS_ID, "clicked": 0}
-        impressions = np.array(
-            behavior_item["impressions"].to_list()[0] + [EMPTY_IMPRESSION]
-        )  # NOTE: EMPTY_IMPRESSION_IDX = -1なので最後尾に追加する。
+    #     history: list[str] = (
+    #         behavior_item["history"].to_list()[0] if behavior_item["history"].to_list()[0] is not None else []
+    #     )  # TODO: Consider Remove if "history" is None
+    #     EMPTY_IMPRESSION = {"news_id": EMPTY_NEWS_ID, "clicked": 0}
+    #     impressions = np.array(
+    #         behavior_item["impressions"].to_list()[0] + [EMPTY_IMPRESSION]
+    #     )  # NOTE: EMPTY_IMPRESSION_IDX = -1なので最後尾に追加する。
 
-        # Extract candidate_news & history_news based on sample idxes
+    #     # Extract candidate_news & history_news based on sample idxes
+    #     candidate_news_ids = [imp_item["news_id"] for imp_item in impressions]
+    #     labels = [imp_item["clicked"] for imp_item in impressions]
+    #     history_news_ids = history[: self.history_size]  # TODO: diverse
+    #     if len(history) < self.history_size:
+    #         history_news_ids = history_news_ids + [EMPTY_NEWS_ID] * (self.history_size - len(history))
+
+    #     # News ID to News Title
+    #     candidate_news_titles, history_news_titles = [
+    #         self.__news_id_to_title_map[news_id] for news_id in candidate_news_ids
+    #     ], [self.__news_id_to_title_map[news_id] for news_id in history_news_ids]
+
+    #     # Convert to Tensor
+    #     candidate_news_tensor, history_news_tensor = self.batch_transform_texts(
+    #         candidate_news_titles
+    #     ), self.batch_transform_texts(history_news_titles)
+    #     one_hot_label_tensor = torch.Tensor(labels)
+
+    #     return {
+    #         "news_histories": history_news_tensor,
+    #         "candidate_news": candidate_news_tensor,
+    #         "target": one_hot_label_tensor,
+    #     }
+    def __getitem__(self, behavior_idx: int) -> dict:
+        # Retrieve the behavior item
+        behavior_item = self.behavior_df.slice(behavior_idx, 1).to_dicts()[0]
+
+        # Extract 'impression_id'
+        impression_id = str(behavior_item['impression_id'])
+
+        # Extract history
+        history = behavior_item["history"] if behavior_item["history"] is not None else []
+
+        # Extract impressions (candidate news)
+        impressions = behavior_item["impressions"]
+
+        # Extract candidate news IDs and labels in the original order
         candidate_news_ids = [imp_item["news_id"] for imp_item in impressions]
         labels = [imp_item["clicked"] for imp_item in impressions]
-        history_news_ids = history[: self.history_size]  # TODO: diverse
-        if len(history) < self.history_size:
-            history_news_ids = history_news_ids + [EMPTY_NEWS_ID] * (self.history_size - len(history))
 
-        # News ID to News Title
-        candidate_news_titles, history_news_titles = [
-            self.__news_id_to_title_map[news_id] for news_id in candidate_news_ids
-        ], [self.__news_id_to_title_map[news_id] for news_id in history_news_ids]
+        # Process history news IDs
+        history_news_ids = history[-self.history_size:]
+        if len(history_news_ids) < self.history_size:
+            history_news_ids = [EMPTY_NEWS_ID] * (self.history_size - len(history_news_ids)) + history_news_ids
 
-        # Convert to Tensor
-        candidate_news_tensor, history_news_tensor = self.batch_transform_texts(
-            candidate_news_titles
-        ), self.batch_transform_texts(history_news_titles)
+        # Map news IDs to titles
+        candidate_news_titles = [self.__news_id_to_title_map.get(news_id, "") for news_id in candidate_news_ids]
+        history_news_titles = [self.__news_id_to_title_map.get(news_id, "") for news_id in history_news_ids]
+
+        # Convert titles to tensors
+        candidate_news_tensor = self.batch_transform_texts(candidate_news_titles)
+        history_news_tensor = self.batch_transform_texts(history_news_titles)
         one_hot_label_tensor = torch.Tensor(labels)
 
         return {
             "news_histories": history_news_tensor,
             "candidate_news": candidate_news_tensor,
+            "candidate_news_id": candidate_news_ids,
+            "impression_id": impression_id,
             "target": one_hot_label_tensor,
         }
+
+
 
     def __len__(self) -> int:
         return len(self.behavior_df)

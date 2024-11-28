@@ -1,0 +1,15 @@
+[2024-11-25 15:02:35,147][root][INFO] - Initializing Model
+[2024-11-25 15:02:36,402][root][INFO] - Model initialized in 1.25 seconds
+[2024-11-25 15:02:36,402][root][INFO] - Loading Datasets
+[2024-11-25 15:02:45,317][root][INFO] - Datasets loaded in 8.91 seconds
+[2024-11-25 15:02:45,540][root][ERROR] - An error occurred: You have set `args.eval_strategy` to IntervalStrategy.EPOCH but you didn't pass an `eval_dataset` to `Trainer`. Either set `args.eval_strategy` to `no` or pass an `eval_dataset`. 
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 177, in train
+    trainer = Trainer(
+              ^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/utils/deprecation.py", line 165, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 418, in __init__
+    raise ValueError(
+ValueError: You have set `args.eval_strategy` to IntervalStrategy.EPOCH but you didn't pass an `eval_dataset` to `Trainer`. Either set `args.eval_strategy` to `no` or pass an `eval_dataset`. 

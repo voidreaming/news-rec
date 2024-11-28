@@ -1,0 +1,17 @@
+[2024-11-25 14:59:26,706][root][INFO] - Initializing Model
+[2024-11-25 14:59:27,898][root][INFO] - Model initialized in 1.19 seconds
+[2024-11-25 14:59:27,899][root][INFO] - Loading Datasets
+[2024-11-25 14:59:36,749][root][INFO] - Datasets loaded in 8.85 seconds
+[2024-11-25 14:59:36,750][root][ERROR] - An error occurred: --load_best_model_at_end requires the save and eval strategy to match, but found
+- Evaluation strategy: IntervalStrategy.NO
+- Save strategy: IntervalStrategy.EPOCH
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 157, in train
+    training_args = TrainingArguments(
+                    ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 134, in __init__
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/training_args.py", line 1636, in __post_init__
+    raise ValueError(
+ValueError: --load_best_model_at_end requires the save and eval strategy to match, but found
+- Evaluation strategy: IntervalStrategy.NO
+- Save strategy: IntervalStrategy.EPOCH

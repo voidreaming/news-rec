@@ -1,0 +1,10 @@
+random_seed: 42
+pretrained: bert-base-uncased
+npratio: 10
+history_size: 50
+batch_size: 4
+gradient_accumulation_steps: 4
+epochs: 1
+learning_rate: 3.0e-05
+weight_decay: 0.01
+max_len: 128

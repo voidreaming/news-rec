@@ -1,0 +1,57 @@
+[2024-11-25 11:36:01,223][root][INFO] - Initializing Model
+[2024-11-25 11:36:41,964][root][INFO] - Model initialized in 40.74 seconds
+[2024-11-25 11:36:41,964][root][INFO] - Loading Datasets
+[2024-11-25 11:36:51,086][root][INFO] - Datasets loaded in 9.12 seconds
+[2024-11-25 11:36:51,270][root][INFO] - Starting Training
+[2024-11-25 11:36:53,299][root][ERROR] - An error occurred: The size of tensor a (8) must match the size of tensor b (50) at non-singleton dimension 2
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 166, in train
+    trainer.train()
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2123, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2481, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3579, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3633, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/NRMS.py", line 44, in forward
+    news_histories_encoded = self.user_encoder(
+                             ^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 118, in forward
+    news_histories_encoded = layer(news_histories_encoded, attention_mask)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 90, in forward
+    attention_output = self.attention(hidden_states, attention_mask)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 68, in forward
+    query_score += attention_mask
+RuntimeError: The size of tensor a (8) must match the size of tensor b (50) at non-singleton dimension 2

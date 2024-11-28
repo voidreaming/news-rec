@@ -1,0 +1,100 @@
+[2024-11-25 12:04:29,687][root][INFO] - Initializing Model
+[2024-11-25 12:05:10,341][root][INFO] - Model initialized in 40.65 seconds
+[2024-11-25 12:05:10,341][root][INFO] - Loading Datasets
+[2024-11-25 12:05:19,657][root][INFO] - Datasets loaded in 9.32 seconds
+[2024-11-25 12:05:19,865][root][INFO] - Starting Training
+[2024-11-25 12:05:22,022][root][ERROR] - An error occurred: CUDA out of memory. Tried to allocate 300.00 MiB. GPU 0 has a total capacity of 23.65 GiB of which 9.06 MiB is free. Including non-PyTorch memory, this process has 23.63 GiB memory in use. Of the allocated memory 23.13 GiB is allocated by PyTorch, and 53.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 182, in train
+    trainer.train()
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2123, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2481, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3579, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3633, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/NRMS.py", line 44, in forward
+    news_histories_encoded = self.user_encoder(
+                             ^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 215, in forward
+    news_histories_encoded = news_encoder(news_histories)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/PLMBasedNewsEncoder.py", line 106, in forward
+    base_features = self.plm(input_val).last_hidden_state
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/models/distilbert/modeling_distilbert.py", line 798, in forward
+    return self.transformer(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/models/distilbert/modeling_distilbert.py", line 551, in forward
+    layer_outputs = layer_module(
+                    ^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/models/distilbert/modeling_distilbert.py", line 495, in forward
+    ffn_output = self.ffn(sa_output)  # (bs, seq_length, dim)
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/models/distilbert/modeling_distilbert.py", line 429, in forward
+    return apply_chunking_to_forward(self.ff_chunk, self.chunk_size_feed_forward, self.seq_len_dim, input)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/pytorch_utils.py", line 248, in apply_chunking_to_forward
+    return forward_fn(*input_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/models/distilbert/modeling_distilbert.py", line 434, in ff_chunk
+    x = self.lin2(x)
+        ^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 300.00 MiB. GPU 0 has a total capacity of 23.65 GiB of which 9.06 MiB is free. Including non-PyTorch memory, this process has 23.63 GiB memory in use. Of the allocated memory 23.13 GiB is allocated by PyTorch, and 53.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

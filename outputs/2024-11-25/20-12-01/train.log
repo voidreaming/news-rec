@@ -1,0 +1,48 @@
+[2024-11-25 20:12:02,243][root][INFO] - Initializing Model
+[2024-11-25 20:12:03,540][root][INFO] - Model initialized in 1.30 seconds
+[2024-11-25 20:12:03,540][root][INFO] - Loading Datasets
+[2024-11-25 20:12:12,331][root][INFO] - Datasets loaded in 8.79 seconds
+[2024-11-25 20:12:12,534][root][INFO] - Starting Training
+[2024-11-25 21:44:00,958][root][INFO] - Evaluating at the end of epoch
+[2024-11-25 22:11:03,708][root][INFO] - Evaluation AUC: 0.6494
+[2024-11-25 22:11:03,844][root][INFO] - Current AUC: 0.6494
+[2024-11-25 22:11:03,845][root][INFO] - New best AUC: 0.6494
+[2024-11-25 23:43:31,020][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 00:10:30,882][root][INFO] - Evaluation AUC: 0.6346
+[2024-11-26 00:10:31,071][root][INFO] - Current AUC: 0.6346
+[2024-11-26 01:42:11,657][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 02:09:23,094][root][INFO] - Evaluation AUC: 0.6511
+[2024-11-26 02:09:23,227][root][INFO] - Current AUC: 0.6511
+[2024-11-26 02:09:23,227][root][INFO] - New best AUC: 0.6511
+[2024-11-26 03:41:50,018][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 04:11:05,875][root][INFO] - Evaluation AUC: 0.6513
+[2024-11-26 04:11:06,010][root][INFO] - Current AUC: 0.6513
+[2024-11-26 04:11:06,010][root][INFO] - New best AUC: 0.6513
+[2024-11-26 05:43:13,789][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 06:12:21,950][root][INFO] - Evaluation AUC: 0.6624
+[2024-11-26 06:12:22,083][root][INFO] - Current AUC: 0.6624
+[2024-11-26 06:12:22,084][root][INFO] - New best AUC: 0.6624
+[2024-11-26 07:44:48,272][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 08:13:37,691][root][INFO] - Evaluation AUC: 0.6645
+[2024-11-26 08:13:37,831][root][INFO] - Current AUC: 0.6645
+[2024-11-26 08:13:37,832][root][INFO] - New best AUC: 0.6645
+[2024-11-26 09:45:41,896][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 10:13:16,924][root][INFO] - Evaluation AUC: 0.6657
+[2024-11-26 10:13:17,148][root][INFO] - Current AUC: 0.6657
+[2024-11-26 10:13:17,149][root][INFO] - New best AUC: 0.6657
+[2024-11-26 11:45:39,458][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 12:14:57,946][root][INFO] - Evaluation AUC: 0.6729
+[2024-11-26 12:14:58,087][root][INFO] - Current AUC: 0.6729
+[2024-11-26 12:14:58,087][root][INFO] - New best AUC: 0.6729
+[2024-11-26 13:47:45,473][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 14:16:51,919][root][INFO] - Evaluation AUC: 0.6707
+[2024-11-26 14:16:52,094][root][INFO] - Current AUC: 0.6707
+[2024-11-26 15:48:42,763][root][INFO] - Evaluating at the end of epoch
+[2024-11-26 16:16:00,367][root][INFO] - Evaluation AUC: 0.6694
+[2024-11-26 16:16:00,502][root][INFO] - Current AUC: 0.6694
+[2024-11-26 16:16:05,154][root][INFO] - Training completed in 72232.62 seconds
+[2024-11-26 16:16:05,154][root][INFO] - Final Evaluation
+[2024-11-26 16:43:21,337][root][INFO] - Evaluation AUC: 0.6694
+[2024-11-26 16:43:21,475][root][INFO] - Final evaluation completed in 1636.32 seconds
+[2024-11-26 16:43:21,476][root][INFO] - Final AUC: 0.6694
+[2024-11-26 16:43:21,476][root][INFO] - Total training time: 73880.30 seconds

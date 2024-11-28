@@ -79,12 +79,19 @@ def read_behavior_df(path_to_tsv: Path, clear_cache: bool = False) -> pl.DataFra
         .with_columns(
             [
                 pl.col("impression_news_list")
-                .apply(lambda v: [{"news_id": item.split("-")[0], "clicked": int(item.split("-")[1])} for item in v])
+                .map_elements(
+                    lambda v: [{"news_id": item.split("-")[0], "clicked": int(item.split("-")[1])} for item in v],
+                    return_dtype=pl.List(pl.Struct([
+                        pl.Field("news_id", pl.Utf8),
+                        pl.Field("clicked", pl.Int64)
+                    ]))
+                )
                 .alias("impressions")
             ]
         )
         .with_columns([pl.col("history_str").str.split(" ").alias("history")])
         .select(["impression_id", "user_id", "time", "history", "impressions"])
     )
+
     logging.info(behavior_df[0])
     return behavior_df

@@ -1,0 +1,7 @@
+[2024-11-25 11:57:36,651][root][INFO] - Initializing Model
+[2024-11-25 11:58:16,896][root][ERROR] - An error occurred: name 'cfg' is not defined
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 115, in train
+    max_position_embeddings=cfg.history_size + 1,
+                            ^^^
+NameError: name 'cfg' is not defined

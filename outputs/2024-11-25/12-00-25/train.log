@@ -1,0 +1,58 @@
+[2024-11-25 12:01:05,836][root][INFO] - Initializing Model
+[2024-11-25 12:01:46,556][root][INFO] - Model initialized in 40.72 seconds
+[2024-11-25 12:01:46,557][root][INFO] - Loading Datasets
+[2024-11-25 12:01:56,019][root][INFO] - Datasets loaded in 9.46 seconds
+[2024-11-25 12:01:56,221][root][INFO] - Starting Training
+[2024-11-25 12:01:58,312][root][ERROR] - An error occurred: expected scalar type Float but found BFloat16
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 182, in train
+    trainer.train()
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2123, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2481, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3579, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 3633, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/NRMS.py", line 44, in forward
+    news_histories_encoded = self.user_encoder(
+                             ^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 220, in forward
+    output = self.fastformer(news_histories_encoded, attention_mask)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 202, in forward
+    output = self.poolers[pooler_index](all_hidden_states[-1], attention_mask)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/rsch/news-recommendation-llm/src/recommendation/nrms/UserEncoder.py", line 76, in forward
+    x = torch.bmm(x.permute(0, 2, 1), alpha)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: expected scalar type Float but found BFloat16

@@ -1,0 +1,24 @@
+[2024-11-25 11:32:30,322][root][INFO] - Initializing Model
+[2024-11-25 11:33:10,966][root][INFO] - Model initialized in 40.64 seconds
+[2024-11-25 11:33:10,967][root][INFO] - Loading Datasets
+[2024-11-25 11:33:20,353][root][INFO] - Datasets loaded in 9.39 seconds
+[2024-11-25 11:33:20,519][root][ERROR] - An error occurred: Using RTX 4000 series doesn't support faster communication broadband via P2P or IB. Please set `NCCL_P2P_DISABLE="1"` and `NCCL_IB_DISABLE="1" or use `accelerate launch` which will do this automatically.
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 140, in train
+    training_args = TrainingArguments(
+                    ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 134, in __init__
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/training_args.py", line 1773, in __post_init__
+    self.device
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/training_args.py", line 2299, in device
+    return self._setup_devices
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/utils/generic.py", line 60, in __get__
+    cached = self.fget(obj)
+             ^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/training_args.py", line 2229, in _setup_devices
+    self.distributed_state = PartialState(**accelerator_state_kwargs)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/accelerate/state.py", line 288, in __init__
+    raise NotImplementedError(
+NotImplementedError: Using RTX 4000 series doesn't support faster communication broadband via P2P or IB. Please set `NCCL_P2P_DISABLE="1"` and `NCCL_IB_DISABLE="1" or use `accelerate launch` which will do this automatically.

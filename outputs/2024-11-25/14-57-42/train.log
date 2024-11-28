@@ -1,0 +1,25 @@
+[2024-11-25 14:57:56,101][root][INFO] - Initializing Model
+[2024-11-25 14:58:28,567][root][INFO] - Model initialized in 32.47 seconds
+[2024-11-25 14:58:28,567][root][INFO] - Loading Datasets
+[2024-11-25 14:58:38,009][root][INFO] - Datasets loaded in 9.44 seconds
+[2024-11-25 14:58:38,200][root][INFO] - Starting Training
+[2024-11-25 14:58:38,360][root][ERROR] - An error occurred: EarlyStoppingCallback requires load_best_model_at_end = True
+Traceback (most recent call last):
+  File "/home/shouju/rsch/news-recommendation-llm/src/experiment/train.py", line 189, in train
+    trainer.train()
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2123, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer.py", line 2382, in _inner_training_loop
+    self.control = self.callback_handler.on_train_begin(args, self.state, self.control)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer_callback.py", line 468, in on_train_begin
+    return self.call_event("on_train_begin", args, state, control)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer_callback.py", line 518, in call_event
+    result = getattr(callback, event)(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shouju/anaconda3/envs/rec-llm/lib/python3.11/site-packages/transformers/trainer_callback.py", line 693, in on_train_begin
+    assert args.load_best_model_at_end, "EarlyStoppingCallback requires load_best_model_at_end = True"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: EarlyStoppingCallback requires load_best_model_at_end = True

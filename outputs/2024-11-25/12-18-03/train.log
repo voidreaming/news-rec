@@ -1,0 +1,5 @@
+[2024-11-25 12:18:43,695][root][INFO] - Initializing Model
+[2024-11-25 12:19:24,390][root][INFO] - Model initialized in 40.69 seconds
+[2024-11-25 12:19:24,390][root][INFO] - Loading Datasets
+[2024-11-25 12:19:33,500][root][INFO] - Datasets loaded in 9.11 seconds
+[2024-11-25 12:19:33,684][root][INFO] - Starting Training
