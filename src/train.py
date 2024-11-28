@@ -2,18 +2,18 @@ import hydra
 import numpy as np
 import torch
 from my_config.my_config import TrainConfig
-from const.path import LOG_OUTPUT_DIR, MIND_SMALL_TRAIN_DATASET_DIR, MIND_SMALL_VAL_DATASET_DIR, MODEL_OUTPUT_DIR
-from evaluation.RecEvaluator import RecEvaluator, RecMetrics
-from mind.dataframe import read_behavior_df, read_news_df
-from mind.MINDDataset import MINDTrainDataset, MINDValDataset
-from recommendation.nrms import NRMS, EnhancedPLMBasedNewsEncoder, UserEncoder
+from mind_pre.dataframe import read_behavior_df, read_news_df
+from mind_pre.MINDDataset import MINDTrainDataset, MINDValDataset
+from model.nrms import NRMS, EnhancedPLMBasedNewsEncoder, UserEncoder
 from torch import nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoConfig, AutoTokenizer, Trainer, TrainingArguments, TrainerCallback, BertConfig
 from transformers.modeling_outputs import ModelOutput
 from utils.logger import logging
+from utils.folder import LOG_OUTPUT_DIR, MIND_SMALL_TRAIN_DATASET_DIR, MIND_SMALL_VAL_DATASET_DIR, MODEL_OUTPUT_DIR
 from utils.path import generate_folder_name_with_timestamp
+from utils.RecEvaluator import RecEvaluator, RecMetrics
 from utils.random_seed import set_random_seed
 from utils.text import create_transform_fn_from_pretrained_tokenizer
 import time
@@ -101,10 +101,8 @@ def train(
         logging.info("Initializing Model")
         model_start_time = time.time()
         news_encoder = EnhancedPLMBasedNewsEncoder(pretrained)
-        # Obtain hidden_size from the news encoder's pretrained model
         hidden_size = news_encoder.plm.config.hidden_size
 
-        # Create the Fastformer configuration
         fastformer_config = BertConfig(
             hidden_size=hidden_size,
             num_hidden_layers=2,

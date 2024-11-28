@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from transformers.modeling_outputs import ModelOutput
-from typing import Optional
+
 
 
 class NRMS(nn.Module):
@@ -19,7 +19,6 @@ class NRMS(nn.Module):
         self.loss_fn = loss_fn
 
     def forward(
-        # self, candidate_news: torch.Tensor, news_histories: torch.Tensor, target: Optional[torch.Tensor] = None
         self, candidate_news: torch.Tensor, news_histories: torch.Tensor, target: torch.Tensor
     ) -> torch.Tensor:
         """
@@ -55,19 +54,9 @@ class NRMS(nn.Module):
         )  # [batch_size, (candidate_num), emb_dim] x [batch_size, emb_dim, 1] -> [batch_size, (1+npratio), 1, 1]
         output = output.squeeze(-1).squeeze(-1)  # [batch_size, (1+npratio), 1, 1] -> [batch_size, (1+npratio)]
 
-        # NOTE:
-        # when "val" mode(self.training == False) → not calculate loss score
-        # Multiple hot labels may exist on target.
-        # e.g.
-        # candidate_news = ["N24510","N39237","N9721"]
-        # target = [0,2](=[1, 0, 1] in one-hot format)
         if not self.training:
             return ModelOutput(logits=output, loss=torch.Tensor([-1]), labels=target)
 
         loss = self.loss_fn(output, target)
         return ModelOutput(logits=output, loss=loss, labels=target)
-        # if not self.training or target is None:
-        #     return ModelOutput(logits=output, loss=torch.Tensor([-1]), labels=target)
-
-        # loss = self.loss_fn(output, target)
-        # return ModelOutput(logits=output, loss=loss, labels=target)
+        

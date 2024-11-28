@@ -49,6 +49,8 @@ import torch.nn as nn
 from transformers import BertConfig
 from transformers.models.bert.modeling_bert import BertSelfOutput, BertIntermediate, BertOutput
 
+# adapt from https://github.com/wuch15/Fastformer/tree/main
+
 # Fastformer Components
 class AttentionPooling(nn.Module):
     def __init__(self, config):

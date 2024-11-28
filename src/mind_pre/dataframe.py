@@ -7,7 +7,7 @@ from typing import Callable
 
 import pandas as pd
 import polars as pl
-from const.path import CACHE_DIR
+from utils.folder import CACHE_DIR
 from utils.logger import logging
 
 
